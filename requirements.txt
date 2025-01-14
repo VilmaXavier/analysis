@@ -4,3 +4,4 @@ transformers
 keras
 numpy
 pickle-mixin
+tensorflow
