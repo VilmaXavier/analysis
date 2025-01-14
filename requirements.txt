@@ -1,0 +1,6 @@
+streamlit
+nltk
+transformers
+keras
+numpy
+pickle-mixin

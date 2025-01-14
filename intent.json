@@ -1,0 +1,136 @@
+{
+    "intents": [
+      {
+        "tag": "greeting",
+        "patterns": [
+          "Hi",
+          "Hello",
+          "Good morning",
+          "Good evening",
+          "Hey"
+        ],
+        "responses": [
+          "Hello! How can I assist you today?",
+          "Hi there! What information can I provide for you?"
+        ]
+      },
+      {
+        "tag": "admission_process",
+        "patterns": [
+          "How can I apply for admission?",
+          "What is the admission process?",
+          "Tell me about the admission procedure",
+          "How to get admission in St. Xavier's College?",
+          "Admission requirements"
+        ],
+        "responses": [
+          "You can find detailed information about the admission process on our Admissions and Courses page: https://xaviers.edu/main/admissions-and-courses"
+        ]
+      },
+      {
+        "tag": "courses_offered",
+        "patterns": [
+          "What courses are available?",
+          "List of courses offered",
+          "Programs available at St. Xavier's College",
+          "Undergraduate courses",
+          "Postgraduate courses"
+        ],
+        "responses": [
+          "St. Xavier's College offers a variety of undergraduate and postgraduate courses. You can explore the full list here: https://xaviers.ac/#/courses"
+        ]
+      },
+      {
+        "tag": "contact_information",
+        "patterns": [
+          "How can I contact the college?",
+          "College contact details",
+          "Phone number of St. Xavier's College",
+          "Email address for inquiries",
+          "College address"
+        ],
+        "responses": [
+          "You can contact us at +91-22-22620661 or via email at webadmin@xaviers.edu. Our address is 5, Mahapalika Marg, Mumbai- 400001, Maharashtra."
+        ]
+      },
+      {
+        "tag": "faculty_information",
+        "patterns": [
+          "Who are the faculty members?",
+          "Information about the teaching staff",
+          "List of professors",
+          "Faculty details",
+          "Departments and faculty"
+        ],
+        "responses": [
+          "You can find information about our faculty members on the Faculty page: https://xaviers.ac/#/faculty"
+        ]
+      },
+      {
+        "tag": "news_events",
+        "patterns": [
+          "Upcoming events",
+          "Latest news",
+          "College events",
+          "News and announcements",
+          "Recent happenings at St. Xavier's College"
+        ],
+        "responses": [
+          "Stay updated with our latest news and events here: https://xaviers.ac/#/news-events"
+        ]
+      },
+      {
+        "tag": "library_resources",
+        "patterns": [
+          "Library facilities",
+          "Access to library",
+          "Library hours",
+          "How to use the library",
+          "Library services"
+        ],
+        "responses": [
+          "Our library offers a vast collection of resources. For more details, visit: https://xaviers.ac/#/library"
+        ]
+      },
+      {
+        "tag": "hostel_accommodation",
+        "patterns": [
+          "Is there hostel accommodation?",
+          "Hostel facilities",
+          "How to apply for hostel",
+          "Hostel fees",
+          "Accommodation for students"
+        ],
+        "responses": [
+          "Yes, we offer hostel facilities. You can find more information and apply here: https://xaviers.ac/#/hostel"
+        ]
+      },
+      {
+        "tag": "fee_structure",
+        "patterns": [
+          "What is the fee structure?",
+          "Tuition fees",
+          "Course fees",
+          "Fee details",
+          "Cost of courses"
+        ],
+        "responses": [
+          "The fee structure varies by course. Please refer to the Admissions and Courses page for detailed information: https://xaviers.edu/main/admissions-and-courses"
+        ]
+      },
+      {
+        "tag": "scholarships",
+        "patterns": [
+          "Are there any scholarships available?",
+          "Scholarship programs",
+          "Financial aid",
+          "Student scholarships",
+          "How to apply for scholarships"
+        ],
+        "responses": [
+          "St. Xavier's College offers various scholarships and financial aid programs. Details can be found here: https://xaviers.ac/#/scholarships"
+        ]
+      }
+    ]
+  }
+  
