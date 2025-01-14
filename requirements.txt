@@ -5,3 +5,5 @@ keras
 numpy
 pickle-mixin
 tensorflow
+scikit-learn
+matplotlib
