@@ -1,67 +1,61 @@
-import time
+import streamlit as st
+import pandas as pd
 import matplotlib.pyplot as plt
 
-from nltk_chatbot import nltk_response
-from gpt_chatbot import gpt_response
-from bert_chatbot import bert_response
+st.set_page_config(page_title="Chatbot Comparison", layout="centered")
 
-import pickle
-import json
-from keras.models import load_model
+st.title("🤖 Chatbot Model Comparison")
+st.write("Compare the performance of three different chatbot models: GPT, BERT, and NLTK")
 
-# Load NLTK chatbot assets
-try:
-    model = load_model("chatbot_model.keras")
-    words = pickle.load(open("words.pkl", "rb"))
-    classes = pickle.load(open("classes.pkl", "rb"))
-    intents = json.load(open("intent.json"))
-except Exception as e:
-    print("Error loading model or resources:", e)
-    exit()
+# Sample input message
+user_input = st.text_input("Enter your message:", "Hello, how can I help you?")
 
-# Test Inputs
-test_inputs = [
-    "Hi there!",
-    "What's your name?",
-    "Tell me something funny",
-    "Can you help with login?",
-    "Bye!"
-]
+# Fake responses
+responses = {
+    "GPT": "Hello! How can I assist you today?",
+    "BERT": "Hi! What can I help you with?",
+    "NLTK": "Hello! How may I help you?",
+}
 
-# Store results
-timing = {"GPT": [], "NLTK": [], "BERT": []}
-responses = {"GPT": [], "NLTK": [], "BERT": []}
+# Show responses
+if user_input:
+    st.subheader("💬 Responses from Models")
+    for model, reply in responses.items():
+        st.markdown(f"**{model}:** {reply}")
 
-print("\n📊 Starting Chatbot Benchmark...\n")
+    # Fake metrics
+    st.subheader("📊 Performance Comparison")
 
-for msg in test_inputs:
-    print(f"User: {msg}")
-    
-    # GPT
-    start = time.time()
-    gpt_resp = gpt_response(msg)
-    timing["GPT"].append(time.time() - start)
-    responses["GPT"].append(gpt_resp)
-    print(f"GPT ➜ {gpt_resp}")
-    
-    # NLTK
-    start = time.time()
-    nltk_resp = nltk_response(msg, model, words, classes, intents)
-    timing["NLTK"].append(time.time() - start)
-    responses["NLTK"].append(nltk_resp)
-    print(f"NLTK ➜ {nltk_resp}")
-    
-    # BERT
-    start = time.time()
-    bert_resp = bert_response(msg)
-    timing["BERT"].append(time.time() - start)
-    responses["BERT"].append(bert_resp)
-    print(f"BERT ➜ {bert_resp}\n")
+    data = {
+        "Model": ["GPT", "BERT", "NLTK"],
+        "Accuracy": [0.95, 0.88, 0.75],
+        "Response Time (ms)": [150, 200, 50],
+        "Fluency Score": [9.5, 8.2, 6.0],
+    }
 
-# Bar Chart
-avg_times = [sum(timing[m])/len(timing[m]) for m in timing]
-plt.bar(timing.keys(), avg_times, color=['#FF8C00', '#1E90FF', '#32CD32'])
-plt.title("📊 Avg. Response Time per Model")
-plt.ylabel("Time (s)")
-plt.savefig("comparison_graph.png")
-plt.show()
+    df = pd.DataFrame(data)
+
+    st.dataframe(df.set_index("Model"))
+
+    # Plot Accuracy
+    st.markdown("### Accuracy")
+    fig1, ax1 = plt.subplots()
+    ax1.bar(df["Model"], df["Accuracy"], color=["green", "blue", "orange"])
+    ax1.set_ylim([0, 1])
+    st.pyplot(fig1)
+
+    # Plot Response Time
+    st.markdown("### Response Time (Lower is better)")
+    fig2, ax2 = plt.subplots()
+    ax2.bar(df["Model"], df["Response Time (ms)"], color=["green", "blue", "orange"])
+    st.pyplot(fig2)
+
+    # Plot Fluency
+    st.markdown("### Fluency Score (Out of 10)")
+    fig3, ax3 = plt.subplots()
+    ax3.bar(df["Model"], df["Fluency Score"], color=["green", "blue", "orange"])
+    ax3.set_ylim([0, 10])
+    st.pyplot(fig3)
+
+st.markdown("---")
+st.caption("🔬 Metrics are illustrative and not based on actual model inference.")
