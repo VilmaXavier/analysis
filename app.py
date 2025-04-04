@@ -5,68 +5,63 @@ from nltk_chatbot import nltk_response
 from gpt_chatbot import gpt_response
 from bert_chatbot import bert_response
 
-from keras.models import load_model
 import pickle
 import json
+from keras.models import load_model
 
-# Load shared resources for NLTK chatbot
-model = load_model("chatbot_model.keras")
-words = pickle.load(open("words.pkl", "rb"))
-classes = pickle.load(open("classes.pkl", "rb"))
-intents = json.loads(open("intent.json").read())
+# Load NLTK chatbot assets
+try:
+    model = load_model("chatbot_model.keras")
+    words = pickle.load(open("words.pkl", "rb"))
+    classes = pickle.load(open("classes.pkl", "rb"))
+    intents = json.load(open("intent.json"))
+except Exception as e:
+    print("Error loading model or resources:", e)
+    exit()
 
-# Sample test inputs to evaluate across all models
+# Test Inputs
 test_inputs = [
-    "Hello there!",
-    "What is your name?",
-    "Tell me a joke.",
-    "How can I reset my password?",
-    "Goodbye"
+    "Hi there!",
+    "What's your name?",
+    "Tell me something funny",
+    "Can you help with login?",
+    "Bye!"
 ]
 
-# Dictionaries to store metrics
+# Store results
 timing = {"GPT": [], "NLTK": [], "BERT": []}
 responses = {"GPT": [], "NLTK": [], "BERT": []}
 
-print("Running chatbot comparison...\n")
+print("\n📊 Starting Chatbot Benchmark...\n")
 
-# Loop through test messages
-for message in test_inputs:
-    print(f"User: {message}")
+for msg in test_inputs:
+    print(f"User: {msg}")
     
     # GPT
     start = time.time()
-    gpt_ans = gpt_response(message)
-    end = time.time()
-    responses["GPT"].append(gpt_ans)
-    timing["GPT"].append(end - start)
-    print(f"GPT Response: {gpt_ans}")
+    gpt_resp = gpt_response(msg)
+    timing["GPT"].append(time.time() - start)
+    responses["GPT"].append(gpt_resp)
+    print(f"GPT ➜ {gpt_resp}")
     
     # NLTK
     start = time.time()
-    nltk_ans = nltk_response(message, model, words, classes, intents)
-    end = time.time()
-    responses["NLTK"].append(nltk_ans)
-    timing["NLTK"].append(end - start)
-    print(f"NLTK Response: {nltk_ans}")
+    nltk_resp = nltk_response(msg, model, words, classes, intents)
+    timing["NLTK"].append(time.time() - start)
+    responses["NLTK"].append(nltk_resp)
+    print(f"NLTK ➜ {nltk_resp}")
     
     # BERT
     start = time.time()
-    bert_ans = bert_response(message)
-    end = time.time()
-    responses["BERT"].append(bert_ans)
-    timing["BERT"].append(end - start)
-    print(f"BERT Response: {bert_ans}\n")
+    bert_resp = bert_response(msg)
+    timing["BERT"].append(time.time() - start)
+    responses["BERT"].append(bert_resp)
+    print(f"BERT ➜ {bert_resp}\n")
 
-# Plotting the comparison
-models = ["GPT", "NLTK", "BERT"]
-average_time = [sum(timing[m])/len(timing[m]) for m in models]
-
-plt.figure(figsize=(10, 6))
-plt.bar(models, average_time, color=["orange", "skyblue", "lightgreen"])
-plt.title("Average Response Time Comparison")
-plt.ylabel("Time (seconds)")
-plt.xlabel("Chatbot Models")
-plt.tight_layout()
+# Bar Chart
+avg_times = [sum(timing[m])/len(timing[m]) for m in timing]
+plt.bar(timing.keys(), avg_times, color=['#FF8C00', '#1E90FF', '#32CD32'])
+plt.title("📊 Avg. Response Time per Model")
+plt.ylabel("Time (s)")
 plt.savefig("comparison_graph.png")
 plt.show()
