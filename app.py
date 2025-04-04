@@ -37,24 +37,30 @@ if user_input:
 
     st.dataframe(df.set_index("Model"))
 
+    # Define light red shades
+    red_shades = ["#f28e8e", "#f2b6b6", "#f2dcdc"]
+
     # Plot Accuracy
     st.markdown("### Accuracy")
     fig1, ax1 = plt.subplots()
-    ax1.bar(df["Model"], df["Accuracy"], color=["green", "blue", "orange"])
+    ax1.bar(df["Model"], df["Accuracy"], color=red_shades)
     ax1.set_ylim([0, 1])
+    ax1.set_ylabel("Accuracy")
     st.pyplot(fig1)
 
     # Plot Response Time
     st.markdown("### Response Time (Lower is better)")
     fig2, ax2 = plt.subplots()
-    ax2.bar(df["Model"], df["Response Time (ms)"], color=["green", "blue", "orange"])
+    ax2.bar(df["Model"], df["Response Time (ms)"], color=red_shades)
+    ax2.set_ylabel("Milliseconds")
     st.pyplot(fig2)
 
     # Plot Fluency
     st.markdown("### Fluency Score (Out of 10)")
     fig3, ax3 = plt.subplots()
-    ax3.bar(df["Model"], df["Fluency Score"], color=["green", "blue", "orange"])
+    ax3.bar(df["Model"], df["Fluency Score"], color=red_shades)
     ax3.set_ylim([0, 10])
+    ax3.set_ylabel("Score")
     st.pyplot(fig3)
 
 st.markdown("---")
