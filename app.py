@@ -37,8 +37,8 @@ if user_input:
 
     st.dataframe(df.set_index("Model"))
 
-    # Define light red shades
-    red_shades = ["#f28e8e", "#f2b6b6", "#f2dcdc"]
+    red_shades = ["#ff9999", "#ff6666", "#ff4d4d"]
+
 
     # Plot Accuracy
     st.markdown("### Accuracy")
